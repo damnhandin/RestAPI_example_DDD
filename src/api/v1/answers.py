@@ -1,8 +1,8 @@
 import logging
+from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.exc import IntegrityError
-from typing_extensions import Annotated
 
 from src.api.v1.deps import get_answers_service
 from src.schemas.answers_schema import AnswerCreateSchema
@@ -17,9 +17,9 @@ router = APIRouter(tags=["answers"])
     status_code=status.HTTP_201_CREATED,
 )
 async def create_answer_endpoint(
-        question_id: int,
-        answer: AnswerCreateSchema,
-        answers_service: Annotated[AnswersService, Depends(get_answers_service)]
+    question_id: int,
+    answer: AnswerCreateSchema,
+    answers_service: Annotated[AnswersService, Depends(get_answers_service)],
 ):
     try:
         return await answers_service.add_answer(answer=answer, question_id=question_id)
@@ -37,8 +37,8 @@ async def create_answer_endpoint(
 
 @router.get("/answers/{answer_id}")
 async def get_answer_endpoint(
-        answer_id: int,
-        answers_service: Annotated[AnswersService, Depends(get_answers_service)]
+    answer_id: int,
+    answers_service: Annotated[AnswersService, Depends(get_answers_service)],
 ):
     try:
         answer = await answers_service.get_answer(answer_id=answer_id)
@@ -60,8 +60,8 @@ async def get_answer_endpoint(
     status_code=status.HTTP_204_NO_CONTENT,
 )
 async def delete_answer_endpoint(
-        answer_id: int,
-        answers_service: Annotated[AnswersService, Depends(get_answers_service)]
+    answer_id: int,
+    answers_service: Annotated[AnswersService, Depends(get_answers_service)],
 ):
     try:
         deleted = await answers_service.delete_answer(answer_id=answer_id)

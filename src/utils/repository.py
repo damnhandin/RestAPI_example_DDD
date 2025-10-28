@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from sqlalchemy import insert, select, delete
+from sqlalchemy import delete, insert, select
 from sqlalchemy.orm import selectinload
 
 
@@ -67,9 +67,14 @@ class SqlAlchemyQuestionsRepository(SqlAlchemyRepository):
             res = await session.execute(stmt)
             res = [row[0].to_read_model() for row in res.all()]
             return res
+
     async def find_one(self, object_id: int):
         async with self.session_maker() as session:
-            stmt = select(self.model).options(selectinload(self.model.answers)).where(self.model.id == object_id)
+            stmt = (
+                select(self.model)
+                .options(selectinload(self.model.answers))
+                .where(self.model.id == object_id)
+            )
             res = await session.scalar(stmt)
             if not res:
                 return res

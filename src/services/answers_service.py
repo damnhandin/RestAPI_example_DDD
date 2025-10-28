@@ -1,5 +1,3 @@
-from typing import Optional, List
-
 from src.schemas import AnswerSchema
 from src.schemas.answers_schema import AnswerCreateSchema
 from src.utils.repository import AbstractRepository
@@ -19,9 +17,9 @@ class AnswersService:
         answer_id = await self.answers_repo.del_one(answer_id)
         return bool(answer_id)
 
-    async def get_answer(self, answer_id) -> Optional[AnswerSchema]:
+    async def get_answer(self, answer_id) -> AnswerSchema | None:
         return await self.answers_repo.find_one(answer_id)
 
-    async def get_answers(self) -> List[AnswerSchema]:
+    async def get_answers(self) -> list[AnswerSchema]:
         answers = await self.answers_repo.find_all()
         return answers

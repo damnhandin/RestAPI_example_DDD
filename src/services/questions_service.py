@@ -1,5 +1,3 @@
-from typing import Optional, List
-
 from src.schemas import QuestionSchema
 from src.schemas.question_schema import QuestionCreateSchema
 from src.utils.repository import AbstractRepository
@@ -18,9 +16,9 @@ class QuestionsService:
         question_id = await self.questions_repo.del_one(question_id)
         return bool(question_id)
 
-    async def get_question(self, question_id: int) -> Optional[QuestionSchema]:
+    async def get_question(self, question_id: int) -> QuestionSchema | None:
         return await self.questions_repo.find_one(question_id)
 
-    async def get_questions(self) -> List[Optional[QuestionSchema]]:
+    async def get_questions(self) -> list[QuestionSchema | None]:
         questions = await self.questions_repo.find_all()
         return questions

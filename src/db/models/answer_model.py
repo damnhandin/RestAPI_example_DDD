@@ -37,5 +37,5 @@ class AnswerOrm(Base):
             text=self.text,
             id=self.id,
             question_id=self.question_id,
-            created_at=self.created_at
+            created_at=self.created_at,
         )

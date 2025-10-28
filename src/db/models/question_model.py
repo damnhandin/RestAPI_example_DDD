@@ -31,5 +31,5 @@ class QuestionOrm(Base):
             id=self.id,
             text=self.text,
             created_at=self.created_at,
-            answers=[answer.to_read_model() for answer in self.answers]
+            answers=[answer.to_read_model() for answer in self.answers],
         )

@@ -15,7 +15,9 @@ router = APIRouter(prefix="/questions", tags=["questions"])
 
 
 @router.get("", status_code=status.HTTP_200_OK)
-async def get_questions_endpoint(questions_service: Annotated[QuestionsService, Depends(get_questions_service)]):
+async def get_questions_endpoint(
+    questions_service: Annotated[QuestionsService, Depends(get_questions_service)],
+):
     try:
         return await questions_service.get_questions()
     except Exception:
@@ -28,8 +30,8 @@ async def get_questions_endpoint(questions_service: Annotated[QuestionsService, 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
 async def create_question_endpoint(
-        question: QuestionCreateSchema,
-        questions_service: Annotated[QuestionsService, Depends(get_questions_service)]
+    question: QuestionCreateSchema,
+    questions_service: Annotated[QuestionsService, Depends(get_questions_service)],
 ):
     try:
         return await questions_service.add_question(question)
@@ -46,9 +48,8 @@ async def create_question_endpoint(
     status_code=status.HTTP_200_OK,
 )
 async def get_question_with_answers_endpoint(
-        question_id: int,
-        questions_service: Annotated[QuestionsService, Depends(get_questions_service)]
-
+    question_id: int,
+    questions_service: Annotated[QuestionsService, Depends(get_questions_service)],
 ):
     try:
         question = await questions_service.get_question(question_id)
@@ -64,8 +65,10 @@ async def get_question_with_answers_endpoint(
 
 
 @router.delete("/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_question_endpoint(question_id: int,
-                                   questions_service: Annotated[QuestionsService, Depends(get_questions_service)]):
+async def delete_question_endpoint(
+    question_id: int,
+    questions_service: Annotated[QuestionsService, Depends(get_questions_service)],
+):
     try:
         deleted = await questions_service.delete_question(question_id)
     except Exception as e:

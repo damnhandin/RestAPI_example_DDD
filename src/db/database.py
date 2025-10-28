@@ -9,11 +9,11 @@ logger = logging.getLogger(__name__)
 
 class Database:
     def __init__(
-            self,
-            db_config: DbConfig | None,
-            echo=True,
-            pool_size=5,
-            max_overflow=10,
+        self,
+        db_config: DbConfig | None,
+        echo=True,
+        pool_size=5,
+        max_overflow=10,
     ):
         self.db_config = db_config
         self.engine = create_async_engine(

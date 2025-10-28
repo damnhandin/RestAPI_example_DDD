@@ -1,5 +1,4 @@
 from datetime import datetime
-from typing import List
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -17,6 +16,6 @@ class QuestionCreateSchema(QuestionBaseSchema):
 class QuestionSchema(QuestionBaseSchema):
     id: int
     created_at: datetime
-    answers: List[AnswerSchema]
+    answers: list[AnswerSchema]
 
     model_config = ConfigDict(from_attributes=True)
